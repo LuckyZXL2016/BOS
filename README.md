@@ -4,6 +4,8 @@
 
 ### 软件架构： mysql+struts2+spring+hibernate+easyui
 
+### 运行过程： 本次项目由两部分组成，bos-web项目运行时调用了bos_crm的服务，它们是两个独立的web项目。其中bos_crm不是maven项目，依赖包点击[下载](https://pan.baidu.com/s/1aeFFSvuZk3fcJB7WuPg_wQ)，放至WEB-INF/lib下。项目运行成功后，通过如localhost:8080/bos-web/login形式访问。
+
 ### 项目描述：本系统是基于B/S架构而设计开发的，是某物流公司的一个后台管理系统，属于物流公司整个ERP平台的一个组成部分。本系统是此物流公司的一个二期改造项目，原来此公司存在一个C/S架构的系统，后来业务不断扩大，所以公司决定进行改造。该系统主要有基础设置、取派、中转、路由、报表几大部分组成。
 
 ### 相关框架：
