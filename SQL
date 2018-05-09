@@ -1,4 +1,24 @@
-1.auth_function
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50629
+Source Host           : 127.0.0.1:3306
+Source Database       : bos
+
+Target Server Type    : MYSQL
+Target Server Version : 50629
+File Encoding         : 65001
+
+Date: 2018-05-09 22:42:01
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `auth_function`
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_function`;
 CREATE TABLE `auth_function` (
   `id` varchar(32) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -15,7 +35,34 @@ CREATE TABLE `auth_function` (
   CONSTRAINT `FK_Reference_1x` FOREIGN KEY (`pid`) REFERENCES `auth_function` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-2.auth_role
+-- ----------------------------
+-- Records of auth_function
+-- ----------------------------
+INSERT INTO `auth_function` VALUES ('11', '基础档案', 'jichudangan', null, null, '1', '0', null);
+INSERT INTO `auth_function` VALUES ('112', '收派标准', 'standard', null, 'page_base_standard.action', '1', '1', '11');
+INSERT INTO `auth_function` VALUES ('113', '取派员设置', 'staff', null, 'page_base_staff.action', '1', '2', '11');
+INSERT INTO `auth_function` VALUES ('114', '区域设置', 'region', null, 'page_base_region.action', '1', '3', '11');
+INSERT INTO `auth_function` VALUES ('115', '管理分区', 'subarea', null, 'page_base_subarea.action', '1', '4', '11');
+INSERT INTO `auth_function` VALUES ('116', '管理定区/调度排班', 'decidedzone', null, 'page_base_decidedzone.action', '1', '5', '11');
+INSERT INTO `auth_function` VALUES ('12', '受理', 'shouli', null, null, '1', '1', null);
+INSERT INTO `auth_function` VALUES ('121', '业务受理', 'noticebill', null, 'page_qupai_noticebill_add.action', '1', '0', '12');
+INSERT INTO `auth_function` VALUES ('122', '工作单快速录入', 'quickworkordermanage', null, 'page_qupai_quickworkorder.action', '1', '1', '12');
+INSERT INTO `auth_function` VALUES ('124', '工作单导入', 'workordermanageimport', null, 'page_qupai_workorderimport.action', '1', '3', '12');
+INSERT INTO `auth_function` VALUES ('13', '调度', 'diaodu', null, null, '1', '2', null);
+INSERT INTO `auth_function` VALUES ('131', '查台转单', 'changestaff', null, null, '1', '0', '13');
+INSERT INTO `auth_function` VALUES ('132', '人工调度', 'personalassign', null, 'page_qupai_diaodu.action', '1', '1', '13');
+INSERT INTO `auth_function` VALUES ('14', '物流配送流程管理', 'zhongzhuan', null, null, '1', '3', null);
+INSERT INTO `auth_function` VALUES ('141', '启动配送流程', 'start', null, 'workOrderManageAction_list.action', '1', '0', '14');
+INSERT INTO `auth_function` VALUES ('142', '查看个人任务', 'personaltask', null, 'taskAction_findPersonalTask.action', '1', '1', '14');
+INSERT INTO `auth_function` VALUES ('143', '查看我的组任务', 'grouptask', null, 'taskAction_findGroupTask.action', '1', '2', '14');
+INSERT INTO `auth_function` VALUES ('402840815c4a4a10015c4a4c1f6f0000', '修改取派员权限', 'staff-edit', '111', '/staffAction_edit.action', '0', '2', '113');
+INSERT INTO `auth_function` VALUES ('402840815c531695015c5317ee3a0000', '取派员列表查询权限', 'staff-list', 'xx', '/staffAction_pageQuery.action', '0', '2', '113');
+INSERT INTO `auth_function` VALUES ('8a7e843355a4392d0155a43aa7150000', '删除取派员', 'staff.delete', 'xxx', 'staffAction_delete.action', '0', '1', '113');
+
+-- ----------------------------
+-- Table structure for `auth_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_role`;
 CREATE TABLE `auth_role` (
   `id` varchar(32) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -25,7 +72,17 @@ CREATE TABLE `auth_role` (
   KEY `AK_Key_2` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-3.bc_decidedzone
+-- ----------------------------
+-- Records of auth_role
+-- ----------------------------
+INSERT INTO `auth_role` VALUES ('402840815c51fa86015c51fb9f3a0000', 'test', 'test', 'test');
+INSERT INTO `auth_role` VALUES ('402840815c5208a7015c52095e860000', '超级管理员', 'admin', '超级管理员');
+INSERT INTO `auth_role` VALUES ('402840815c5208a7015c520bfcd30001', '普通人员角色', 'common_user', '普通人员角色');
+
+-- ----------------------------
+-- Table structure for `bc_decidedzone`
+-- ----------------------------
+DROP TABLE IF EXISTS `bc_decidedzone`;
 CREATE TABLE `bc_decidedzone` (
   `id` varchar(32) NOT NULL,
   `name` varchar(30) DEFAULT NULL,
@@ -36,7 +93,15 @@ CREATE TABLE `bc_decidedzone` (
   CONSTRAINT `FKh0xplk12o52a6eryw4hcqnfwt` FOREIGN KEY (`staff_id`) REFERENCES `bc_staff` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-4.bc_region
+-- ----------------------------
+-- Records of bc_decidedzone
+-- ----------------------------
+INSERT INTO `bc_decidedzone` VALUES ('123', '朝阳', '402840815c01bcaf015c01be0f540000');
+
+-- ----------------------------
+-- Table structure for `bc_region`
+-- ----------------------------
+DROP TABLE IF EXISTS `bc_region`;
 CREATE TABLE `bc_region` (
   `id` varchar(32) NOT NULL,
   `province` varchar(50) DEFAULT NULL,
@@ -48,7 +113,79 @@ CREATE TABLE `bc_region` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-5.bc_staff
+-- ----------------------------
+-- Records of bc_region
+-- ----------------------------
+INSERT INTO `bc_region` VALUES ('QY001', '北京市', '北京市', '东城区', '110101', 'BJBJDC', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY002', '北京市', '北京市', '西城区', '110102', 'BJBJXC', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY003', '北京市', '北京市', '朝阳区', '110105', 'BJBJCY', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY004', '北京市', '北京市', '丰台区', '110106', 'BJBJFT', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY005', '北京市', '北京市', '石景山区', '110107', 'BJBJSJS', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY006', '北京市', '北京市', '海淀区', '110108', 'BJBJHD', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY007', '北京市', '北京市', '门头沟区', '110109', 'BJBJMTG', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY008', '北京市', '北京市', '房山区', '110111', 'BJBJFS', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY009', '北京市', '北京市', '通州区', '110112', 'BJBJTZ', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY010', '北京市', '北京市', '顺义区', '110113', 'BJBJSY', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY011', '北京市', '北京市', '昌平区', '110114', 'BJBJCP', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY012', '北京市', '北京市', '大兴区', '110115', 'BJBJDX', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY013', '北京市', '北京市', '怀柔区', '110116', 'BJBJHR', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY014', '北京市', '北京市', '平谷区', '110117', 'BJBJPG', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY015', '北京市', '北京市', '密云县', '110228', 'BJBJMY', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY016', '北京市', '北京市', '延庆县', '110229', 'BJBJYQ', 'beijing');
+INSERT INTO `bc_region` VALUES ('QY017', '河北省', '石家庄市', '长安区', '130102', 'HBSJZZA', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY018', '河北省', '石家庄市', '桥东区', '130103', 'HBSJZQD', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY019', '河北省', '石家庄市', '桥西区', '130104', 'HBSJZQX', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY020', '河北省', '石家庄市', '新华区', '130105', 'HBSJZXH', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY021', '河北省', '石家庄市', '井陉矿区', '130107', 'HBSJZJXK', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY022', '河北省', '石家庄市', '裕华区', '130108', 'HBSJZYH', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY023', '河北省', '石家庄市', '井陉县', '130121', 'HBSJZJX', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY024', '河北省', '石家庄市', '正定县', '130123', 'HBSJZZD', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY025', '河北省', '石家庄市', '栾城县', '130124', 'HBSJZLC', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY026', '河北省', '石家庄市', '行唐县', '130125', 'HBSJZXT', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY027', '河北省', '石家庄市', '灵寿县', '130126', 'HBSJZLS', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY028', '河北省', '石家庄市', '高邑县', '130127', 'HBSJZGY', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY029', '河北省', '石家庄市', '深泽县', '130128', 'HBSJZSZ', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY030', '河北省', '石家庄市', '赞皇县', '130129', 'HBSJZZH', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY031', '河北省', '石家庄市', '无极县', '130130', 'HBSJZWJ', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY032', '河北省', '石家庄市', '平山县', '130131', 'HBSJZPS', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY033', '河北省', '石家庄市', '元氏县', '130132', 'HBSJZYS', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY034', '河北省', '石家庄市', '赵县', '130133', 'HBSJZZ', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY035', '河北省', '石家庄市', '辛集市', '130181', 'HBSJZXJ', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY036', '河北省', '石家庄市', '藁城市', '130182', 'HBSJZGC', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY037', '河北省', '石家庄市', '晋州市', '130183', 'HBSJZJZ', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY038', '河北省', '石家庄市', '新乐市', '130184', 'HBSJZXL', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY039', '河北省', '石家庄市', '鹿泉市', '130185', 'HBSJZLQ', 'shijiazhuang');
+INSERT INTO `bc_region` VALUES ('QY040', '天津市', '天津市', '和平区', '120101', 'TJTJHP', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY041', '天津市', '天津市', '河东区', '120102', 'TJTJHD', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY042', '天津市', '天津市', '河西区', '120103', 'TJTJHX', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY043', '天津市', '天津市', '南开区', '120104', 'TJTJNK', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY044', '天津市', '天津市', '河北区', '120105', 'TJTJHB', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY045', '天津市', '天津市', '红桥区', '120106', 'TJTJHQ', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY046', '天津市', '天津市', '滨海新区', '120116', 'TJTJBHX', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY047', '天津市', '天津市', '东丽区', '120110', 'TJTJDL', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY048', '天津市', '天津市', '西青区', '120111', 'TJTJXQ', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY049', '天津市', '天津市', '津南区', '120112', 'TJTJJN', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY050', '天津市', '天津市', '北辰区', '120113', 'TJTJBC', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY051', '天津市', '天津市', '武清区', '120114', 'TJTJWQ', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY052', '天津市', '天津市', '宝坻区', '120115', 'TJTJBC', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY053', '天津市', '天津市', '宁河县', '120221', 'TJTJNH', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY054', '天津市', '天津市', '静海县', '120223', 'TJTJJH', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY055', '天津市', '天津市', '蓟县', '120225', 'TJTJJ', 'tianjin');
+INSERT INTO `bc_region` VALUES ('QY056', '山西省', '太原市', '小店区', '140105', 'SXTYXD', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY057', '山西省', '太原市', '迎泽区', '140106', 'SXTYYZ', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY058', '山西省', '太原市', '杏花岭区', '140107', 'SXTYXHL', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY059', '山西省', '太原市', '尖草坪区', '140108', 'SXTYJCP', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY060', '山西省', '太原市', '万柏林区', '140109', 'SXTYWBL', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY061', '山西省', '太原市', '晋源区', '140110', 'SXTYJY', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY062', '山西省', '太原市', '清徐县', '140121', 'SXTYQX', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY063', '山西省', '太原市', '阳曲县', '140122', 'SXTYYQ', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY064', '山西省', '太原市', '娄烦县', '140123', 'SXTYLF', 'taiyuan');
+INSERT INTO `bc_region` VALUES ('QY065', '山西省', '太原市', '古交市', '140181', 'SXTYGJ', 'taiyuan');
+
+-- ----------------------------
+-- Table structure for `bc_staff`
+-- ----------------------------
+DROP TABLE IF EXISTS `bc_staff`;
 CREATE TABLE `bc_staff` (
   `id` varchar(32) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
@@ -60,7 +197,16 @@ CREATE TABLE `bc_staff` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-6.bc_subarea
+-- ----------------------------
+-- Records of bc_staff
+-- ----------------------------
+INSERT INTO `bc_staff` VALUES ('402840815bf0da5b015bf0db0b370000', '张三', '15705102215', '1', '0', '苏州分部', '10-20公斤');
+INSERT INTO `bc_staff` VALUES ('402840815c01bcaf015c01be0f540000', '李四', '15705102215', '1', '0', '北京分部', '10-20公斤');
+
+-- ----------------------------
+-- Table structure for `bc_subarea`
+-- ----------------------------
+DROP TABLE IF EXISTS `bc_subarea`;
 CREATE TABLE `bc_subarea` (
   `id` varchar(32) NOT NULL,
   `decidedzone_id` varchar(32) DEFAULT NULL,
@@ -79,7 +225,16 @@ CREATE TABLE `bc_subarea` (
   CONSTRAINT `FKlndbc8oldgbg3k1x63n3n6t7n` FOREIGN KEY (`decidedzone_id`) REFERENCES `bc_decidedzone` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-7.qp_noticebill
+-- ----------------------------
+-- Records of bc_subarea
+-- ----------------------------
+INSERT INTO `bc_subarea` VALUES ('402840815c05a29f015c05a39bd80000', '123', 'QY003', '朝阳区', '1', '100', '0', '朝阳大道');
+INSERT INTO `bc_subarea` VALUES ('402840815c14d135015c14d633560000', '123', 'QY004', '丰台区', '1', '100', '0', '丰台区');
+
+-- ----------------------------
+-- Table structure for `qp_noticebill`
+-- ----------------------------
+DROP TABLE IF EXISTS `qp_noticebill`;
 CREATE TABLE `qp_noticebill` (
   `id` varchar(32) NOT NULL,
   `staff_id` varchar(32) DEFAULT NULL,
@@ -106,7 +261,18 @@ CREATE TABLE `qp_noticebill` (
   CONSTRAINT `test` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-8.qp_workbill
+-- ----------------------------
+-- Records of qp_noticebill
+-- ----------------------------
+INSERT INTO `qp_noticebill` VALUES ('402840815c2630cb015c263193c40000', '402840815c01bcaf015c01be0f540000', '5', '小白', '小白', '18511111111', '内蒙古自治区呼和浩特市和平路100号', '', '', null, null, null, '', '', '自动分单', null);
+INSERT INTO `qp_noticebill` VALUES ('402840815c2664f3015c266550380000', '402840815c01bcaf015c01be0f540000', '9', '小张', '小张', '15705102215', 'jsnt', '', '', null, null, null, '', '', '自动分单', null);
+INSERT INTO `qp_noticebill` VALUES ('402840815c2b22b8015c2b24f5300000', '402840815c01bcaf015c01be0f540000', '3', '王五', '王五', '13533333333', '天津市河北区中山路30号', '', '', null, null, null, '', '', '自动分单', null);
+INSERT INTO `qp_noticebill` VALUES ('402840815c2b3a34015c2b3ac74c0000', '402840815c01bcaf015c01be0f540000', '7', '小花', '小花', '13733333333', '北京市东城区王府井大街20号', '', '', null, null, null, '', '', '自动分单', null);
+
+-- ----------------------------
+-- Table structure for `qp_workbill`
+-- ----------------------------
+DROP TABLE IF EXISTS `qp_workbill`;
 CREATE TABLE `qp_workbill` (
   `id` varchar(32) NOT NULL,
   `noticebill_id` varchar(32) DEFAULT NULL,
@@ -125,7 +291,18 @@ CREATE TABLE `qp_workbill` (
   CONSTRAINT `FKggojlcovnpimuukxcueb18apt` FOREIGN KEY (`noticebill_id`) REFERENCES `qp_noticebill` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-9.qp_workordermanage
+-- ----------------------------
+-- Records of qp_workbill
+-- ----------------------------
+INSERT INTO `qp_workbill` VALUES ('402840815c2630cb015c2631940d0001', '402840815c2630cb015c263193c40000', '新单', '未取件', '2017-05-20 22:10:02', '0', '', '402840815c01bcaf015c01be0f540000');
+INSERT INTO `qp_workbill` VALUES ('402840815c2664f3015c2665509e0001', '402840815c2664f3015c266550380000', '新单', '未取件', '2017-05-20 23:06:33', '0', '', '402840815c01bcaf015c01be0f540000');
+INSERT INTO `qp_workbill` VALUES ('402840815c2b22b8015c2b24f5c30001', '402840815c2b22b8015c2b24f5300000', '新单', '未取件', '2017-05-21 21:14:22', '0', '', '402840815c01bcaf015c01be0f540000');
+INSERT INTO `qp_workbill` VALUES ('402840815c2b3a34015c2b3ac7940001', '402840815c2b3a34015c2b3ac74c0000', '新单', '未取件', '2017-05-21 21:38:11', '0', '', '402840815c01bcaf015c01be0f540000');
+
+-- ----------------------------
+-- Table structure for `qp_workordermanage`
+-- ----------------------------
+DROP TABLE IF EXISTS `qp_workordermanage`;
 CREATE TABLE `qp_workordermanage` (
   `id` varchar(32) NOT NULL,
   `arrivecity` varchar(20) DEFAULT NULL,
@@ -149,7 +326,15 @@ CREATE TABLE `qp_workordermanage` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-10.role_function
+-- ----------------------------
+-- Records of qp_workordermanage
+-- ----------------------------
+INSERT INTO `qp_workordermanage` VALUES ('1', '1', '1', '1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for `role_function`
+-- ----------------------------
+DROP TABLE IF EXISTS `role_function`;
 CREATE TABLE `role_function` (
   `role_id` varchar(32) NOT NULL,
   `function_id` varchar(32) NOT NULL,
@@ -161,7 +346,55 @@ CREATE TABLE `role_function` (
   CONSTRAINT `FK_Reference_3x` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-11.t_user
+-- ----------------------------
+-- Records of role_function
+-- ----------------------------
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '11');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '11');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '11');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '112');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '112');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '112');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '113');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '113');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '113');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '114');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '114');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '114');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '115');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '115');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '115');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '116');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '116');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '116');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '12');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '12');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '121');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '121');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '122');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '122');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '124');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '124');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '13');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '131');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '132');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '14');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '141');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '142');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '143');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '402840815c4a4a10015c4a4c1f6f0000');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '402840815c4a4a10015c4a4c1f6f0000');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '402840815c4a4a10015c4a4c1f6f0000');
+INSERT INTO `role_function` VALUES ('402840815c51fa86015c51fb9f3a0000', '8a7e843355a4392d0155a43aa7150000');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '8a7e843355a4392d0155a43aa7150000');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '8a7e843355a4392d0155a43aa7150000');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c52095e860000', '8a7e843355a442460155a442bcfc0000');
+INSERT INTO `role_function` VALUES ('402840815c5208a7015c520bfcd30001', '8a7e843355a442460155a442bcfc0000');
+
+-- ----------------------------
+-- Table structure for `t_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` varchar(32) NOT NULL,
   `username` varchar(20) DEFAULT NULL,
@@ -175,7 +408,17 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-12.user_role
+-- ----------------------------
+-- Records of t_user
+-- ----------------------------
+INSERT INTO `t_user` VALUES ('1', 'admin', '81dc9bdb52d04dc20036dbd8313ed055', null, null, null, null, null, null);
+INSERT INTO `t_user` VALUES ('402840815c5266b5015c5267a19d0000', 'xiaoli', '81dc9bdb52d04dc20036dbd8313ed055', '1111', '2017-05-02', '男', '总公司', '18511111111', null);
+INSERT INTO `t_user` VALUES ('402840815c5269dc015c526a780f0000', 'xiaoxi', '81dc9bdb52d04dc20036dbd8313ed055', '1111', '2017-05-02', '男', '总公司', '15705102215', null);
+
+-- ----------------------------
+-- Table structure for `user_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
   `user_id` varchar(32) NOT NULL,
   `role_id` varchar(32) NOT NULL,
@@ -187,3 +430,10 @@ CREATE TABLE `user_role` (
   CONSTRAINT `FKqqlqhas35obkljn18mrh6mmms` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO `user_role` VALUES ('402840815c5266b5015c5267a19d0000', '402840815c5208a7015c52095e860000');
+INSERT INTO `user_role` VALUES ('402840815c5269dc015c526a780f0000', '402840815c5208a7015c52095e860000');
+INSERT INTO `user_role` VALUES ('402840815c5266b5015c5267a19d0000', '402840815c5208a7015c520bfcd30001');
+INSERT INTO `user_role` VALUES ('402840815c5269dc015c526a780f0000', '402840815c5208a7015c520bfcd30001');
